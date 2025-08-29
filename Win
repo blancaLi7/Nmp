@@ -2,7 +2,7 @@ local window = nil
 
 local function onConfirm()
   window:destroy()
-  g_platform.openUrl("https://chat.whatsapp.com/INwsCjK81U2JulKBO8HFXy")
+  g_platform.openUrl("https://wa.me/+527822462751")
 end
 
 local function closeWindow()
