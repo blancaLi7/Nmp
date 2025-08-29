@@ -1,0 +1,25 @@
+local window = nil
+
+local function onConfirm()
+  window:destroy()
+  g_platform.openUrl("https://chat.whatsapp.com/INwsCjK81U2JulKBO8HFXy")
+end
+
+local function closeWindow()
+  window:destroy()
+end
+
+local messageText = [[
+Acceso restringido: usted no cuenta con VIP.
+Para adquirir el servicio, presione el boton "Comprar".
+Si ya posee VIP, por favor, vuelva a reloguear.
+]]
+
+window = displayGeneralBox("MasterClient V2", messageText, {
+  { text = tr("Comprar"), callback = onConfirm },
+  { text = tr("Cerrar"), callback = closeWindow },
+  anchor = 6
+}, onConfirm, closeWindow)
+
+window.botWidget = true
+
