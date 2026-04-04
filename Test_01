@@ -1,0 +1,57 @@
+-- Macro principal
+local FaceTarget = macro(50, "Face Target", function()
+  local me = g_game.getLocalPlayer()
+  if not me then return end
+
+  local target = g_game.getAttackingCreature()
+  if not target then return end
+
+  local mePos = me:getPosition()
+  local tPos  = target:getPosition()
+  if not mePos or not tPos then return end
+  if mePos.z ~= tPos.z then return end           -- ignore se estiverem em andares diferentes
+
+  local dx = tPos.x - mePos.x
+  local dy = tPos.y - mePos.y
+  if dx == 0 and dy == 0 then return end         -- mesmo tile, nada a fazer
+
+  -- Escolhe o eixo dominante (funciona mesmo em diagonal)
+  local dir
+  if math.abs(dx) >= math.abs(dy) then
+    dir = (dx > 0) and 1 or 3   -- 1: leste, 3: oeste
+  else
+    dir = (dy > 0) and 2 or 0   -- 2: sul, 0: norte
+  end
+
+  if g_game.turn then
+    g_game.turn(dir)
+  elseif type(turn) == "function" then
+    turn(dir)
+  end
+end)
+
+-- Ícone para ligar/desligar o macro Face Target
+local faceTargetIcon = addIcon("faceTargetIcon", {text="Face Target", switchable=false, moveable=true}, function()
+  if FaceTarget.isOff() then 
+    FaceTarget.setOn()
+  else 
+    FaceTarget.setOff()
+  end
+end)
+
+-- Atualiza o texto do ícone conforme o estado do macro
+macro(50, function()
+  if FaceTarget.isOn() then
+    faceTargetIcon.text:setColoredText({"   Face    Target\n","white","ON","green"})
+  else
+    faceTargetIcon.text:setColoredText({"   Face    Target\n","white","OFF","red"})
+  end
+end)
+
+-- Define o tamanho do ícone
+faceTargetIcon:setSize({height=50, width=70})
+UI.Separator()
+
+
+print = function() end
+warn = function() end
