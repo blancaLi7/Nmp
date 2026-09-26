@@ -1,0 +1,257 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Layout OTUI - gameRootPanel</title>
+<style>
+  body {
+    margin: 0;
+    background: #0f0f1a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+  }
+  .canvas {
+    width: 900px;
+    background: #1e1e2e;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 40px rgba(96,165,250,0.2);
+    color: #fff;
+  }
+  h1 {
+    text-align: center;
+    font-size: 20px;
+    margin: 0 0 15px;
+    color: #bfdbfe;
+    letter-spacing: 1px;
+  }
+  .root {
+    position: relative;
+    border: 2px dashed #60a5fa;
+    border-radius: 8px;
+    padding: 8px;
+    background: #14141f;
+  }
+  .root-label {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    background: #1e1e2e;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #60a5fa;
+  }
+  .topbar {
+    background: #3a3a5c;
+    border: 2px solid #7a7aff;
+    border-radius: 4px;
+    padding: 4px;
+    text-align: center;
+    font-size: 11px;
+    color: #cfcfff;
+    margin-bottom: 6px;
+  }
+  .row {
+    display: flex;
+    gap: 4px;
+  }
+  .col-left {
+    display: flex;
+    gap: 3px;
+  }
+  .actions {
+    background: #2d5a3d;
+    border: 2px solid #4ade80;
+    border-radius: 6px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 60px;
+    align-items: center;
+  }
+  .actions-title {
+    font-size: 9px;
+    color: #a7f3d0;
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 2px;
+  }
+  .btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(74,222,128,0.35);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #fff;
+  }
+  .side-panel {
+    background: #3d2d5a;
+    border: 2px solid #a78bfa;
+    border-radius: 6px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    color: #ddd6fe;
+    line-height: 1.2;
+  }
+  .map {
+    flex: 1;
+    background: linear-gradient(135deg, #1a3a5c, #14304a);
+    border: 3px solid #60a5fa;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 330px;
+    box-shadow: inset 0 0 40px rgba(96,165,250,0.15);
+  }
+  .map h2 {
+    margin: 0;
+    color: #bfdbfe;
+    font-size: 22px;
+  }
+  .map p {
+    margin: 6px 0 0;
+    color: #93c5fd;
+    font-size: 12px;
+  }
+  .splitter {
+    margin: 8px 0 4px;
+    background: #f59e0b;
+    height: 8px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 10px;
+    color: #1e1e2e;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: ns-resize;
+    box-shadow: 0 0 12px rgba(245,158,11,0.5);
+  }
+  .splitter-label {
+    text-align: center;
+    font-size: 10px;
+    color: #fcd34d;
+    margin-bottom: 6px;
+  }
+  .bottom-action {
+    background: #5a2d2d;
+    border: 2px solid #ef4444;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #fecaca;
+    margin-bottom: 4px;
+  }
+  .bottom-panel {
+    background: #5a4a2d;
+    border: 2px solid #eab308;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #fef08a;
+  }
+  .bottom-panel small {
+    display: block;
+    color: #fde68a;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .legend {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 11px;
+    color: #cfcfff;
+  }
+  .legend div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <h1>🎮 Layout OTUI — gameRootPanel</h1>
+
+  <div class="root">
+    <span class="root-label">UIWidget#gameRootPanel</span>
+
+    <!-- gameTopBar -->
+    <div class="topbar">gameTopBar (altura 0 en móvil)</div>
+
+    <!-- Zona central -->
+    <div class="row">
+      <!-- Botones acción izquierda -->
+      <div class="col-left">
+        <div class="actions">
+          <div class="actions-title">game<br>Left<br>Actions</div>
+          <div class="btn">use</div>
+          <div class="btn">atk</div>
+          <div class="btn">flw</div>
+        </div>
+        <div class="actions">
+          <div class="actions-title">game<br>Left<br>Act2</div>
+          <div class="btn">look</div>
+          <div class="btn">chat</div>
+        </div>
+        <div class="side-panel">game<br>Left<br>Panels</div>
+      </div>
+
+      <!-- Mapa -->
+      <div class="map">
+        <h2>gameMapPanel</h2>
+        <p>&lt; UIGameMap — área de juego</p>
+      </div>
+
+      <!-- Panel derecho -->
+      <div class="side-panel">game<br>Right<br>Panels</div>
+    </div>
+
+    <!-- Splitter -->
+    <div class="splitter">↕</div>
+    <div class="splitter-label">bottomSplitter (min 80 / max altura −150)</div>
+
+    <!-- Paneles inferiores -->
+    <div class="bottom-action">gameBottomActionPanel</div>
+    <div class="bottom-panel">
+      gameBottomPanel
+      <small>(chat / consola / inventario)</small>
+    </div>
+  </div>
+
+  <!-- Leyenda -->
+  <div class="legend">
+    <div><span class="swatch" style="background:#1a3a5c;border:2px solid #60a5fa"></span> Mapa</div>
+    <div><span class="swatch" style="background:#2d5a3d;border:2px solid #4ade80"></span> Botones acción (móvil)</div>
+    <div><span class="swatch" style="background:#3d2d5a;border:2px solid #a78bfa"></span> Paneles laterales</div>
+    <div><span class="swatch" style="background:#f59e0b"></span> Splitter arrastrable</div>
+    <div><span class="swatch" style="background:#5a2d2d;border:2px solid #ef4444"></span> Barra acción inferior</div>
+    <div><span class="swatch" style="background:#5a4a2d;border:2px solid #eab308"></span> Panel inferior (chat)</div>
+  </div>
+</div>
+</body>
+</html>
